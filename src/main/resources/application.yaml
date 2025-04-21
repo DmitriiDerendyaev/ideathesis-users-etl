@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://91.146.28.240:5111/users
+    username: user
+    password: user
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  batch:
+    job:
+      enabled: false
+
+graphql:
+  webclient:
+    endpoint: http://docker.mospolytech.ru:3345/userinfo/graphql
