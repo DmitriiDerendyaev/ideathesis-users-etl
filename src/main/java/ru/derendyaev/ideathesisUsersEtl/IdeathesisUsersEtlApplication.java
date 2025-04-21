@@ -1,4 +1,4 @@
-package ru.derendyaev.ideathesis_users_etl;
+package ru.derendyaev.ideathesisUsersEtl;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
