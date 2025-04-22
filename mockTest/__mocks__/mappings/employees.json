@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/userinfo/graphql",
+    "bodyPatterns": [
+      {
+        "matches": ".*employees\\s*\\{.*items.*\\}.*"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "employees-response.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

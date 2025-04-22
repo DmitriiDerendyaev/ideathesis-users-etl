@@ -1,0 +1,1002 @@
+{
+  "data": {
+    "employees": {
+      "items": [
+        {
+          "fullName": "Лукьянов Александр Сергеевич",
+          "guid": "9c8e762f-53ee-11e1-821f-f46d0479696f",
+          "surname": "Лукьянов",
+          "mail": "",
+          "dateOfBirth": "13.06.1961",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Доцент, к.н.",
+              "staffCategory": "ППС",
+              "employmentType": "Основное место работы",
+              "subDivision": "Кафедра \"Техническая механика и компьютерное моделирование\"",
+              "subDivisionGuid": "3f78aefc-b234-11eb-bba0-f3424449f339",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Харламов Артем Юрьевич",
+          "guid": "f232a47e-8915-11ee-bbb0-d8a9a22ea1c3",
+          "surname": "Харламов",
+          "mail": "",
+          "dateOfBirth": "29.03.1994",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Ассистент",
+              "staffCategory": "ППС",
+              "employmentType": "Внешнее совместительство",
+              "subDivision": "Центр проектной деятельности",
+              "subDivisionGuid": "e83293fa-d1db-11e8-9419-b4b52f5f5348",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Циленко Любовь Петровна",
+          "guid": "b9366a4b-0091-11e2-9194-d8d38563fc83",
+          "surname": "Циленко",
+          "mail": "",
+          "dateOfBirth": "15.11.1958",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Доцент, к.н.",
+              "staffCategory": "ППС",
+              "employmentType": "Внутреннее совместительство",
+              "subDivision": "Кафедра \"Иностранные языки\"",
+              "subDivisionGuid": "610c3931-5fa0-11e6-93fd-b4b52f5f5349",
+              "jobState": "Работа"
+            },
+            {
+              "jobTitle": "Доцент, к.н.",
+              "staffCategory": "ППС",
+              "employmentType": "Основное место работы",
+              "subDivision": "Кафедра \"Иностранные языки\"",
+              "subDivisionGuid": "610c3931-5fa0-11e6-93fd-b4b52f5f5349",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Шахматова Елена Анатольевна",
+          "guid": "dd33dae8-df00-11ef-bbbe-da828539c603",
+          "surname": "Шахматова",
+          "mail": "",
+          "dateOfBirth": "01.02.1964",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Специалист по работе с молодежью",
+              "staffCategory": "АУП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Центр по работе с проживающими",
+              "subDivisionGuid": "584eeabc-b90b-11ed-bba8-d7836776904c",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Кучина Светлана Алексеевна",
+          "guid": "cdcaa9e3-b458-11e9-9426-b4b52f5f5348",
+          "surname": "Кучина",
+          "mail": "",
+          "dateOfBirth": "17.10.1978",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Ведущий бухгалтер",
+              "staffCategory": "АУП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Расчетный отдел",
+              "subDivisionGuid": "b69acc5b-d1f5-11e8-9419-b4b52f5f5348",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Фарнасов Владимир Геннадьевич",
+          "guid": "def01000-ff00-0f00-0f00-000000033201",
+          "surname": "Фарнасов",
+          "mail": "",
+          "dateOfBirth": "02.07.1977",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Инженер",
+              "staffCategory": "УВП",
+              "employmentType": "Внешнее совместительство",
+              "subDivision": "Лаборатория \"Технологии полиграфического и упаковочного производства\"",
+              "subDivisionGuid": "649fa6d3-5534-11e9-9421-b4b52f5f5348",
+              "jobState": "Работа"
+            },
+            {
+              "jobTitle": "Преподаватель",
+              "staffCategory": "ППС",
+              "employmentType": "Внешнее совместительство",
+              "subDivision": "Кафедра \"Технологии и управление качеством в полиграфическом и упаковочном производстве\"",
+              "subDivisionGuid": "6be68ac0-76af-11e7-9407-b4b52f5f5349",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Желнинский Максим Николаевич",
+          "guid": "d3ef07ca-abcd-11ef-bbbe-da828539c603",
+          "surname": "Желнинский",
+          "mail": "",
+          "dateOfBirth": "02.05.1969",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Руководитель офиса",
+              "staffCategory": "АУП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Сервисный офис",
+              "subDivisionGuid": "8dd654e4-b90b-11ed-bba8-d7836776904c",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Станаев Александр Иванович",
+          "guid": "080e7b76-4c7e-11ee-bba9-b45656e83269",
+          "surname": "Станаев",
+          "mail": "",
+          "dateOfBirth": "10.11.1972",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Рабочий по комплексному обслуживанию и ремонту зданий",
+              "staffCategory": "МОП",
+              "employmentType": "Внутреннее совместительство",
+              "subDivision": "Отдел управления кампусом",
+              "subDivisionGuid": "d077d924-de37-11e6-93ff-b4b52f5f5349",
+              "jobState": "Работа"
+            },
+            {
+              "jobTitle": "Электромонтер по ремонту и обслуживанию электрооборудования",
+              "staffCategory": "МОП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Отдел главного энергетика",
+              "subDivisionGuid": "bd3f5951-de37-11e6-93ff-b4b52f5f5349",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Хамраева Жанори Дельферджановна",
+          "guid": "f5a05d4a-d49a-11ea-9434-b4b52f5f5349",
+          "surname": "Хамраева",
+          "mail": "",
+          "dateOfBirth": "01.11.1997",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Секретарь",
+              "staffCategory": "АУП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Аппарат ректора",
+              "subDivisionGuid": "8203e014-3f89-11e7-9407-b4b52f5f5349",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Шульга Максим Вячеславович",
+          "guid": "2dfaf05b-82e4-11e4-9d3a-20cf30d941aa",
+          "surname": "Шульга",
+          "mail": "",
+          "dateOfBirth": "27.09.1988",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Старший преподаватель",
+              "staffCategory": "ППС",
+              "employmentType": "Внутреннее совместительство",
+              "subDivision": "Кафедра \"Прикладная информатика\"",
+              "subDivisionGuid": "8cc8c505-8e1b-11e7-9407-b4b52f5f5349",
+              "jobState": "Работа"
+            },
+            {
+              "jobTitle": "Старший преподаватель",
+              "staffCategory": "ППС",
+              "employmentType": "Основное место работы",
+              "subDivision": "Кафедра \"Прикладная информатика\"",
+              "subDivisionGuid": "8cc8c505-8e1b-11e7-9407-b4b52f5f5349",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Овчинников Виктор Васильевич",
+          "guid": "9e408ec8-82e3-11e4-9d3a-20cf30d941aa",
+          "surname": "Овчинников",
+          "mail": "",
+          "dateOfBirth": "06.06.1956",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Заведующий кафедрой, д.н.",
+              "staffCategory": "ППС",
+              "employmentType": "Основное место работы",
+              "subDivision": "Кафедра \"Материаловедение\"",
+              "subDivisionGuid": "042be3a9-8d91-11e7-9407-b4b52f5f5349",
+              "jobState": "Работа"
+            },
+            {
+              "jobTitle": "Главный научный сотрудник, д.н.",
+              "staffCategory": "НР",
+              "employmentType": "Внутреннее совместительство",
+              "subDivision": "Кафедра \"Материаловедение\"",
+              "subDivisionGuid": "042be3a9-8d91-11e7-9407-b4b52f5f5349",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Комляшкина Елена Анатольевна",
+          "guid": "6264e8db-f2a6-11ea-9434-b4b52f5f5349",
+          "surname": "Комляшкина",
+          "mail": "",
+          "dateOfBirth": "09.10.1996",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Инженер",
+              "staffCategory": "УВП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Кафедра \"Информатика и информационные технологии\"",
+              "subDivisionGuid": "ecc4f273-6480-11e6-93fd-b4b52f5f5349",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Кабанова Елена Салимовна",
+          "guid": "892a7e02-f7fb-11e6-a879-00252213d7ca",
+          "surname": "Кабанова",
+          "mail": "",
+          "dateOfBirth": "22.06.1962",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Уборщик служебных помещений",
+              "staffCategory": "",
+              "employmentType": "Основное место работы",
+              "subDivision": "Отдел модернизации и эксплуатации зданий",
+              "subDivisionGuid": "8a408f84-17f3-11e9-9731-38d547afd994",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Говердовский Владимир Николаевич",
+          "guid": "b2c2e6b9-2f70-11ed-bba2-bc61f7470ec6",
+          "surname": "Говердовский",
+          "mail": "",
+          "dateOfBirth": "26.07.1957",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Ведущий научный сотрудник, д.н.",
+              "staffCategory": "НР",
+              "employmentType": "Внутреннее совместительство",
+              "subDivision": "Кафедра \"Техническая механика и компьютерное моделирование\"",
+              "subDivisionGuid": "3f78aefc-b234-11eb-bba0-f3424449f339",
+              "jobState": "Работа"
+            },
+            {
+              "jobTitle": "Профессор, д.н.",
+              "staffCategory": "ППС",
+              "employmentType": "Основное место работы",
+              "subDivision": "Кафедра \"Техническая механика и компьютерное моделирование\"",
+              "subDivisionGuid": "3f78aefc-b234-11eb-bba0-f3424449f339",
+              "jobState": "Работа"
+            },
+            {
+              "jobTitle": "Профессор, д.н.",
+              "staffCategory": "ППС",
+              "employmentType": "Внутреннее совместительство",
+              "subDivision": "Кафедра \"Техническая механика и компьютерное моделирование\"",
+              "subDivisionGuid": "3f78aefc-b234-11eb-bba0-f3424449f339",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Марюшин Леонид Александрович",
+          "guid": "05b29dd0-82e4-11e4-9d3a-20cf30d941aa",
+          "surname": "Марюшин",
+          "mail": "",
+          "dateOfBirth": "02.09.1968",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Заведующий кафедрой, к.н.",
+              "staffCategory": "ППС",
+              "employmentType": "Основное место работы",
+              "subDivision": "Кафедра \"Промышленная теплоэнергетика\"",
+              "subDivisionGuid": "83b5f6d6-5f9f-11e6-93fd-b4b52f5f5349",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Куликов Николай Иванович",
+          "guid": "d748c43e-1ac9-11de-8fc1-0016e3d4f4cd",
+          "surname": "Куликов",
+          "mail": "",
+          "dateOfBirth": "30.08.1953",
+          "employeeEmployments": [
+            {
+              "jobTitle": "доцент, кандидат наук",
+              "staffCategory": "ППС",
+              "employmentType": "Внешнее совместительство",
+              "subDivision": "кафедра гражданского права",
+              "subDivisionGuid": "b5c123cb-22ae-11ed-83c9-a4bc94a67c88",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Привалов Вячеслав Анатольевич",
+          "guid": "ba2b08df-07da-11ec-bba0-f3424449f339",
+          "surname": "Привалов",
+          "mail": "",
+          "dateOfBirth": "06.09.1962",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Ассистент",
+              "staffCategory": "ППС",
+              "employmentType": "Внутреннее совместительство",
+              "subDivision": "Кафедра \"Информатика и информационные технологии\"",
+              "subDivisionGuid": "ecc4f273-6480-11e6-93fd-b4b52f5f5349",
+              "jobState": "Работа"
+            },
+            {
+              "jobTitle": "Ассистент",
+              "staffCategory": "ППС",
+              "employmentType": "Основное место работы",
+              "subDivision": "Кафедра \"Информатика и информационные технологии\"",
+              "subDivisionGuid": "ecc4f273-6480-11e6-93fd-b4b52f5f5349",
+              "jobState": "Болезнь"
+            }
+          ]
+        },
+        {
+          "fullName": "Губа Владимир Петрович",
+          "guid": "cf8250cf-4995-11ee-bba9-b45656e83269",
+          "surname": "Губа",
+          "mail": "",
+          "dateOfBirth": "27.12.1956",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Профессор, д.н.",
+              "staffCategory": "ППС",
+              "employmentType": "Внешнее совместительство",
+              "subDivision": "Кафедра \"Физическое воспитание\"",
+              "subDivisionGuid": "907a9a06-5fa0-11e6-93fd-b4b52f5f5349",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Ветрова-Романова Марина Геннадьевна",
+          "guid": "ca7c7ea7-414f-11e8-9411-b4b52f5f5348",
+          "surname": "Ветрова-Романова",
+          "mail": "",
+          "dateOfBirth": "11.07.1965",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Документовед",
+              "staffCategory": "УВП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Библиотечно-информационный центр",
+              "subDivisionGuid": "292f87a7-ad2c-11ed-bba7-86d9371b7ba1",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Логинова Юлия Анатольевна",
+          "guid": "def01000-ff00-0f00-0f00-000000050993",
+          "surname": "Логинова",
+          "mail": "",
+          "dateOfBirth": "15.02.1981",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Помощник ректора",
+              "staffCategory": "АУП",
+              "employmentType": "Внутреннее совместительство",
+              "subDivision": "Аппарат ректора",
+              "subDivisionGuid": "8203e014-3f89-11e7-9407-b4b52f5f5349",
+              "jobState": "Работа"
+            },
+            {
+              "jobTitle": "Директор дирекции",
+              "staffCategory": "АУП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Дирекция по реализации программы развития Московского Политеха",
+              "subDivisionGuid": "a5dfd68f-2dbe-11ec-bba0-f3424449f339",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Капленкова Юлия Николаевна",
+          "guid": "74c5b9d3-41f3-11ec-8f57-a85e45135441",
+          "surname": "Капленкова",
+          "mail": "",
+          "dateOfBirth": "30.12.1983",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Заведующий канцелярией",
+              "staffCategory": "",
+              "employmentType": "Основное место работы",
+              "subDivision": "Канцелярия",
+              "subDivisionGuid": "80e71485-7af8-11e6-8a11-c48508709738",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Дуденкова Яна Геннадьевна",
+          "guid": "def01000-ff00-0f00-0f00-000000050587",
+          "surname": "Дуденкова",
+          "mail": "",
+          "dateOfBirth": "25.01.1980",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Старший преподаватель",
+              "staffCategory": "ППС",
+              "employmentType": "Основное место работы",
+              "subDivision": "Кафедра \"Реклама и связи с общественностью в медиаиндустрии\"",
+              "subDivisionGuid": "da642a1f-04b1-11eb-9434-b4b52f5f5349",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Султанова Юлия Михайловна",
+          "guid": "def01000-ff00-0f00-0f00-000000007106",
+          "surname": "Султанова",
+          "mail": "",
+          "dateOfBirth": "24.03.1974",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Старший преподаватель",
+              "staffCategory": "ППС",
+              "employmentType": "Основное место работы",
+              "subDivision": "Кафедра \"Иностранные языки\"",
+              "subDivisionGuid": "610c3931-5fa0-11e6-93fd-b4b52f5f5349",
+              "jobState": "Работа"
+            },
+            {
+              "jobTitle": "Старший преподаватель",
+              "staffCategory": "ППС",
+              "employmentType": "Внутреннее совместительство",
+              "subDivision": "Кафедра \"Иностранные языки\"",
+              "subDivisionGuid": "610c3931-5fa0-11e6-93fd-b4b52f5f5349",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Прохоров Александр Николаевич",
+          "guid": "9539cd0a-1432-11ee-bba9-b45656e83269",
+          "surname": "Прохоров",
+          "mail": "",
+          "dateOfBirth": "05.09.1982",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Младший научный сотрудник",
+              "staffCategory": "НР",
+              "employmentType": "Внешнее совместительство",
+              "subDivision": "Кафедра \"Техническая механика и компьютерное моделирование\"",
+              "subDivisionGuid": "3f78aefc-b234-11eb-bba0-f3424449f339",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Михайлов Максим Максимович",
+          "guid": "1ea2f795-6913-11ee-bbad-d90cb7264673",
+          "surname": "Михайлов",
+          "mail": "",
+          "dateOfBirth": "08.09.2003",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Техник",
+              "staffCategory": "УВП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Лаборатория \"Композитные материалы\"",
+              "subDivisionGuid": "2827efe5-f288-11ee-bbb6-b0756d2ea875",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Зишко Сабина Сергеевна",
+          "guid": "7c6e375f-0eb2-11ee-bba9-b45656e83269",
+          "surname": "Зишко",
+          "mail": "",
+          "dateOfBirth": "12.02.2000",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Программист",
+              "staffCategory": "УВП",
+              "employmentType": "Внешнее совместительство",
+              "subDivision": "Отдел внутренней разработки",
+              "subDivisionGuid": "ea727219-fb9f-11ed-bba9-b45656e83269",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Дмитриева Ольга Владимировна",
+          "guid": "def01000-ff00-0f00-0f00-000000006135",
+          "surname": "Дмитриева",
+          "mail": "",
+          "dateOfBirth": "04.07.1977",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Доцент, к.н.",
+              "staffCategory": "ППС",
+              "employmentType": "Основное место работы",
+              "subDivision": "Кафедра \"Экономика и организация\"",
+              "subDivisionGuid": "a07ec931-869e-11e8-9416-b4b52f5f5348",
+              "jobState": "Работа"
+            },
+            {
+              "jobTitle": "Ведущий документовед",
+              "staffCategory": "УВП",
+              "employmentType": "Внутреннее совместительство",
+              "subDivision": "Отдел аккредитации и лицензирования",
+              "subDivisionGuid": "10930dc5-ad27-11ed-bba7-86d9371b7ba1",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Попова Елена Андреевна",
+          "guid": "def01000-ff00-0f00-0f00-000000045374",
+          "surname": "Попова",
+          "mail": "",
+          "dateOfBirth": "20.09.1976",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Старший преподаватель",
+              "staffCategory": "ППС",
+              "employmentType": "Внутреннее совместительство",
+              "subDivision": "Кафедра \"Иллюстрация и эстамп\"",
+              "subDivisionGuid": "b4933339-647e-11e6-93fd-b4b52f5f5349",
+              "jobState": "Работа"
+            },
+            {
+              "jobTitle": "Старший преподаватель",
+              "staffCategory": "ППС",
+              "employmentType": "Основное место работы",
+              "subDivision": "Кафедра \"Иллюстрация и эстамп\"",
+              "subDivisionGuid": "b4933339-647e-11e6-93fd-b4b52f5f5349",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Полякова Ольга Александровна",
+          "guid": "36051cab-74cd-11ef-bbbb-e5e39c83eb17",
+          "surname": "Полякова",
+          "mail": "",
+          "dateOfBirth": "09.01.2006",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Делопроизводитель",
+              "staffCategory": "УВП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Отдел подготовки и формирования отчетности по поступающим",
+              "subDivisionGuid": "826b5772-2d6c-11ef-bbba-93f1f839d264",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Павленко Гаянэ Борисовна",
+          "guid": "4375a608-74e4-11ef-bbbb-e5e39c83eb17",
+          "surname": "Павленко",
+          "mail": "",
+          "dateOfBirth": "09.02.1974",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Начальник отдела",
+              "staffCategory": "АУП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Расчетный отдел",
+              "subDivisionGuid": "b69acc5b-d1f5-11e8-9419-b4b52f5f5348",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Озеров Сергей Владимирович",
+          "guid": "def01000-ff00-0f00-0f00-000000007048",
+          "surname": "Озеров",
+          "mail": "",
+          "dateOfBirth": "07.10.1980",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Заместитель начальника отдела",
+              "staffCategory": "АУП",
+              "employmentType": "Внешнее совместительство",
+              "subDivision": "Отдел развития информационной инфраструктуры",
+              "subDivisionGuid": "9ae5df20-da1b-11ee-bbb5-c9f235942eed",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Чихинашвили Виталий Гиаевич",
+          "guid": "91c03d1b-8818-11e9-9eb4-38d547afd994",
+          "surname": "Чихинашвили",
+          "mail": "",
+          "dateOfBirth": "12.12.1988",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Преподаватель",
+              "staffCategory": "",
+              "employmentType": "Внешнее совместительство",
+              "subDivision": "Отделение техники и технологий",
+              "subDivisionGuid": "e508f6e9-a0a0-11ed-8f82-a85e45135441",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Глазов Владимир Александрович",
+          "guid": "674de422-9044-11ef-bbbd-932b5c1c973e",
+          "surname": "Глазов",
+          "mail": "",
+          "dateOfBirth": "17.07.1981",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Старший преподаватель",
+              "staffCategory": "ППС",
+              "employmentType": "Внешнее совместительство",
+              "subDivision": "Кафедра \"Наземные транспортные средства\"",
+              "subDivisionGuid": "55d87464-5f09-11e6-93fd-b4b52f5f5349",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Соколова Светлана Анатольевна",
+          "guid": "641ffed2-66e1-11ef-bbbb-e5e39c83eb17",
+          "surname": "Соколова",
+          "mail": "",
+          "dateOfBirth": "22.02.1986",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Ассистент",
+              "staffCategory": "ППС",
+              "employmentType": "Основное место работы",
+              "subDivision": "Кафедра \"Экологическая безопасность технических систем\"",
+              "subDivisionGuid": "e425b5dd-5f9e-11e6-93fd-b4b52f5f5349",
+              "jobState": "Работа"
+            },
+            {
+              "jobTitle": "Ведущий инженер",
+              "staffCategory": "УВП",
+              "employmentType": "Внутреннее совместительство",
+              "subDivision": "Лаборатория кафедры экологическая безопасность технических систем",
+              "subDivisionGuid": "23abcc1a-78fd-11e6-93fd-b4b52f5f5349",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Байбикова Надежда Николаевна",
+          "guid": "203bdc4e-275e-11ec-bba0-f3424449f339",
+          "surname": "Байбикова",
+          "mail": "",
+          "dateOfBirth": "19.02.1984",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Ведущий бухгалтер",
+              "staffCategory": "АУП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Материальный отдел",
+              "subDivisionGuid": "a9be2c5e-d1f5-11e8-9419-b4b52f5f5348",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Чеснокова Дарья Сергеевна",
+          "guid": "8db889b2-f95e-11e8-941a-b4b52f5f5348",
+          "surname": "Чеснокова",
+          "mail": "",
+          "dateOfBirth": "22.10.1986",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Директор дирекции",
+              "staffCategory": "АУП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Дирекция по развитию кампуса",
+              "subDivisionGuid": "80bf6513-6007-11ed-bba2-bc61f7470ec6",
+              "jobState": "Отпуск по уходу за ребенком"
+            }
+          ]
+        },
+        {
+          "fullName": "Демина Полина Витальевна",
+          "guid": "4d22ef77-1176-11ed-bba2-bc61f7470ec6",
+          "surname": "Демина",
+          "mail": "",
+          "dateOfBirth": "02.05.2003",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Инспектор по контролю за исполнением поручений",
+              "staffCategory": "АУП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Отдел молодежной политики",
+              "subDivisionGuid": "5a34f71d-5f01-11e6-93fd-b4b52f5f5349",
+              "jobState": "Работа"
+            },
+            {
+              "jobTitle": "Делопроизводитель",
+              "staffCategory": "АУП",
+              "employmentType": "Внутреннее совместительство",
+              "subDivision": "Центр дизайна и полиграфии",
+              "subDivisionGuid": "92d64391-39d6-11ef-bbbb-e5e39c83eb17",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Яковлева Ольга Михайловна",
+          "guid": "def01000-ff00-0f00-0f00-000000037635",
+          "surname": "Яковлева",
+          "mail": "",
+          "dateOfBirth": "13.09.1979",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Преподаватель",
+              "staffCategory": "ИПР",
+              "employmentType": "Основное место работы",
+              "subDivision": "Центр технологической поддержки образования",
+              "subDivisionGuid": "0ad4ddf2-75a0-11e6-93fd-b4b52f5f5349",
+              "jobState": "Отпуск неоплачиваемый по разрешению работодателя"
+            }
+          ]
+        },
+        {
+          "fullName": "Бородачева Любовь Викторовна",
+          "guid": "51174405-50f7-11e2-8e99-1c6f65450efa",
+          "surname": "Бородачева",
+          "mail": "",
+          "dateOfBirth": "27.03.1958",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Старший преподаватель",
+              "staffCategory": "ППС",
+              "employmentType": "Внутреннее совместительство",
+              "subDivision": "Кафедра \"Менеджмент\"",
+              "subDivisionGuid": "581cbe13-869e-11e8-9416-b4b52f5f5348",
+              "jobState": "Работа"
+            },
+            {
+              "jobTitle": "Старший преподаватель",
+              "staffCategory": "ППС",
+              "employmentType": "Основное место работы",
+              "subDivision": "Кафедра \"Менеджмент\"",
+              "subDivisionGuid": "581cbe13-869e-11e8-9416-b4b52f5f5348",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Быков Артём Валерьевич",
+          "guid": "9c4f4ffd-eabf-11ef-850e-c073d4aa568f",
+          "surname": "Быков",
+          "mail": "",
+          "dateOfBirth": "05.07.2006",
+          "employeeEmployments": [
+            {
+              "jobTitle": "делопроизводитель",
+              "staffCategory": "АУП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Бухгалтерия",
+              "subDivisionGuid": "b299e4cb-a772-11e8-82f8-98ac50b8e062",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Шляхтенков Юрий Григорьевич",
+          "guid": "602a95a9-66a0-11e5-93fc-b4b52f5f5349",
+          "surname": "Шляхтенков",
+          "mail": "",
+          "dateOfBirth": "02.11.1969",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Старший преподаватель",
+              "staffCategory": "ППС",
+              "employmentType": "Внутреннее совместительство",
+              "subDivision": "Кафедра \"Иностранные языки\"",
+              "subDivisionGuid": "610c3931-5fa0-11e6-93fd-b4b52f5f5349",
+              "jobState": "Работа"
+            },
+            {
+              "jobTitle": "Старший преподаватель",
+              "staffCategory": "ППС",
+              "employmentType": "Основное место работы",
+              "subDivision": "Кафедра \"Иностранные языки\"",
+              "subDivisionGuid": "610c3931-5fa0-11e6-93fd-b4b52f5f5349",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Миляева Ольга Валентиновна",
+          "guid": "b01f4ca2-7a56-11e5-8351-a73c8116d40a",
+          "surname": "Миляева",
+          "mail": "",
+          "dateOfBirth": "09.03.1966",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Преподаватель высшей категории",
+              "staffCategory": "",
+              "employmentType": "Основное место работы",
+              "subDivision": "Преподаватели",
+              "subDivisionGuid": "4f366bf3-9c78-11ed-a161-00d8617921ef",
+              "jobState": "Отпуск неоплачиваемый по законодательству"
+            }
+          ]
+        },
+        {
+          "fullName": "Лукин Захар Сергеевич",
+          "guid": "a2f539f5-5ec4-11ef-bbbb-e5e39c83eb17",
+          "surname": "Лукин",
+          "mail": "",
+          "dateOfBirth": "25.01.2007",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Делопроизводитель",
+              "staffCategory": "УВП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Факультет экономики и управления",
+              "subDivisionGuid": "d924dedb-869d-11e8-9416-b4b52f5f5348",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Сидоров Игорь Геннадиевич",
+          "guid": "da842dd0-207d-11e3-8c14-d8d38563fc83",
+          "surname": "Сидоров",
+          "mail": "",
+          "dateOfBirth": "08.04.1955",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Доцент, к.н.",
+              "staffCategory": "ППС",
+              "employmentType": "Основное место работы",
+              "subDivision": "Кафедра \"Прикладная информатика\"",
+              "subDivisionGuid": "8cc8c505-8e1b-11e7-9407-b4b52f5f5349",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Башкирова Вероника Витальевна",
+          "guid": "4b8757ba-de2a-11ef-bbbe-da828539c603",
+          "surname": "Башкирова",
+          "mail": "",
+          "dateOfBirth": "05.12.2005",
+          "employeeEmployments": [
+            {
+              "jobTitle": "делопроизводитель",
+              "staffCategory": "АУП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Учебный отдел",
+              "subDivisionGuid": "b299e4cd-a772-11e8-82f8-98ac50b8e062",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Игнатюгина Екатерина Владимировна",
+          "guid": "def01000-ff00-0f00-0f00-000000058867",
+          "surname": "Игнатюгина",
+          "mail": "",
+          "dateOfBirth": "20.01.1995",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Ведущий документовед",
+              "staffCategory": "УВП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Отделение \"На Прянишникова\"",
+              "subDivisionGuid": "3d5cc24e-d26b-11eb-bba0-f3424449f339",
+              "jobState": "Работа"
+            },
+            {
+              "jobTitle": "Делопроизводитель",
+              "staffCategory": "УВП",
+              "employmentType": "Внутреннее совместительство",
+              "subDivision": "Отделение \"На Прянишникова\"",
+              "subDivisionGuid": "3d5cc24e-d26b-11eb-bba0-f3424449f339",
+              "jobState": "Работа"
+            },
+            {
+              "jobTitle": "Документовед",
+              "staffCategory": "УВП",
+              "employmentType": "Внутреннее совместительство",
+              "subDivision": "Отделение \"На Прянишникова\"",
+              "subDivisionGuid": "3d5cc24e-d26b-11eb-bba0-f3424449f339",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Логинов Александр Николаевич",
+          "guid": "1f11ce53-493c-11e8-9411-b4b52f5f5348",
+          "surname": "Логинов",
+          "mail": "",
+          "dateOfBirth": "24.02.1972",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Заместитель начальника отдела",
+              "staffCategory": "АУП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Отдел управления кампусом",
+              "subDivisionGuid": "d077d924-de37-11e6-93ff-b4b52f5f5349",
+              "jobState": "Болезнь"
+            }
+          ]
+        },
+        {
+          "fullName": "Халисс Айюб",
+          "guid": "2102102c-b9ce-11ee-bbb3-e4c855e58075",
+          "surname": "Халисс",
+          "mail": "",
+          "dateOfBirth": "18.04.1996",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Делопроизводитель",
+              "staffCategory": "УВП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Кафедра \"Экономика и организация\"",
+              "subDivisionGuid": "a07ec931-869e-11e8-9416-b4b52f5f5348",
+              "jobState": "Отпуск основной"
+            }
+          ]
+        },
+        {
+          "fullName": "Грант Яна Джейн",
+          "guid": "d66f9930-09f4-11ee-bba9-b45656e83269",
+          "surname": "Грант",
+          "mail": "",
+          "dateOfBirth": "01.03.1998",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Делопроизводитель",
+              "staffCategory": "УВП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Отдел научной информации",
+              "subDivisionGuid": "c2a2d1b3-491c-11ec-bba0-f3424449f339",
+              "jobState": "Работа"
+            }
+          ]
+        },
+        {
+          "fullName": "Дубовка Илья Михайлович",
+          "guid": "22336289-4ff4-11ef-bbbb-e5e39c83eb17",
+          "surname": "Дубовка",
+          "mail": "",
+          "dateOfBirth": "29.12.2000",
+          "employeeEmployments": [
+            {
+              "jobTitle": "Делопроизводитель",
+              "staffCategory": "УВП",
+              "employmentType": "Основное место работы",
+              "subDivision": "Центр инженерных разработок \"Материаловедение и технологии новых материалов\"",
+              "subDivisionGuid": "c858683e-8789-11ee-bbb0-d8a9a22ea1c3",
+              "jobState": "Работа"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
