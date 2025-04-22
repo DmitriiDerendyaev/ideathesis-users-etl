@@ -1,7 +1,6 @@
 package ru.derendyaev.ideathesisUsersEtl.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -21,7 +20,9 @@ public class GraphQLClient {
     private final WebClient webClient;
     private final ObjectMapper objectMapper;
 
-    public GraphQLClient(WebClient.Builder webClientBuilder, ObjectMapper objectMapper) {
+    public GraphQLClient(@Value("${graphql.webclient.endpoint}") String endpoint,
+                         WebClient.Builder webClientBuilder,
+                         ObjectMapper objectMapper) {
         this.webClient = webClientBuilder.baseUrl(endpoint).build();
         this.objectMapper = objectMapper;
     }
@@ -40,7 +41,9 @@ public class GraphQLClient {
 
         try {
             Map<String, Object> jsonResponse = objectMapper.readValue(response, Map.class);
-            return objectMapper.convertValue(jsonResponse.get("data"), StudentsResponse.class);
+            Map<String, Object> data = (Map<String, Object>) jsonResponse.get("data");
+            Map<String, Object> students = (Map<String, Object>) data.get("students");
+            return objectMapper.convertValue(students, StudentsResponse.class);
         } catch (Exception e) {
             throw new RuntimeException("Failed to parse GraphQL response", e);
         }

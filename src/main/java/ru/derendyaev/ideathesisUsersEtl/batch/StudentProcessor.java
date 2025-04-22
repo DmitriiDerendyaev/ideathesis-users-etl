@@ -1,5 +1,7 @@
 package ru.derendyaev.ideathesisUsersEtl.batch;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.derendyaev.ideathesisUsersEtl.dto.StudentDTO;
 import ru.derendyaev.ideathesisUsersEtl.mapper.StudentMapper;
 import ru.derendyaev.ideathesisUsersEtl.model.Student;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class StudentProcessor implements ItemProcessor<StudentDTO, Student> {
 
+    private static final Logger logger = LoggerFactory.getLogger(StudentProcessor.class);
     private final StudentMapper studentMapper;
 
     @Autowired
@@ -16,7 +19,10 @@ public class StudentProcessor implements ItemProcessor<StudentDTO, Student> {
     }
 
     @Override
-    public Student process(StudentDTO item) throws Exception {
-        return studentMapper.map(item);
+    public Student process(StudentDTO item) {
+        logger.debug("Processing student DTO: {}", item);
+        Student student = studentMapper.map(item);
+        logger.debug("Mapped to entity: {}", student);
+        return student;
     }
 }

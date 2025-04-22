@@ -7,16 +7,23 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto:
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
 
   batch:
+    jdbc:
+      initialize-schema: always  # Это создаст таблицы Spring Batch
     job:
-      enabled: false
+      enabled: true
 
 graphql:
   webclient:
-    endpoint: http://docker.mospolytech.ru:3345/userinfo/graphql
+#    endpoint: http://docker.mospolytech.ru:3345/userinfo/graphql
+    endpoint: http://localhost:8085/userinfo/graphql
+
+logging:
+  level:
+    root: INFO
