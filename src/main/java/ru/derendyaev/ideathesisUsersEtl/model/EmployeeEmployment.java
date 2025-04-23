@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
+@Table(name = "employee_employments")
 @Data
 public class EmployeeEmployment {
     @Id
@@ -30,5 +31,6 @@ public class EmployeeEmployment {
     @JoinColumn(name = "subdivision_id")
     private Subdivision subdivision;
 
+    @Column(name = "job_state")
     private String jobState;
 }

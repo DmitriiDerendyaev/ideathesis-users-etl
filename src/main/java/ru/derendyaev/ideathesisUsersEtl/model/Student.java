@@ -6,6 +6,7 @@ import lombok.Data;
 import java.util.UUID;
 
 @Entity
+@Table(name = "students")
 @Data
 public class Student {
     @Id
@@ -16,6 +17,8 @@ public class Student {
     private StudentGroup group;
 
     private Integer course;
+
+    @Column(name = "start_year")
     private Integer startYear;
 
     @ManyToOne

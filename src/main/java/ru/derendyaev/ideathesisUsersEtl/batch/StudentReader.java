@@ -51,7 +51,7 @@ public class StudentReader implements ItemReader<StudentDTO>, InitializingBean {
     public StudentDTO read() {
         if (nextIndex < studentList.size()) {
             StudentDTO student = studentList.get(nextIndex++);
-            logger.debug("Reading student {}", student);
+            logger.info("Reading student {}", student);
             return student;
         } else {
             return null;
