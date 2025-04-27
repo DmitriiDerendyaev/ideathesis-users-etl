@@ -41,6 +41,9 @@ public class User {
     @Column(name = "user_type")
     private String userType;
 
+    @Version
+    private Long version;
+
     @Column(name = "created_at")
     private Date createdAt;
 

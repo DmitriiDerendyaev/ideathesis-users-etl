@@ -27,20 +27,23 @@ public class Student {
     @Column(name = "start_year")
     private Integer startYear;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "degree_level_id")
     private DegreeLevel degreeLevel;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "degree_form_id")
     private DegreeForm degreeForm;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     @JoinColumn(name = "guid")
     private User user;
+
+    @Version
+    private Long version;
 }
