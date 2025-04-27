@@ -41,6 +41,8 @@ import java.util.stream.Collectors;
 @EnableBatchProcessing
 @RequiredArgsConstructor
 public class BatchConfig {
+
+    private final StepExecutionLogger stepExecutionLogger;
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
     private final GraphQLClient graphQLClient;
@@ -78,6 +80,7 @@ public class BatchConfig {
                 .skipLimit(100)
                 .retryLimit(3)
                 .retry(OptimisticLockingFailureException.class)
+                .listener(stepExecutionLogger)
                 .build();
     }
 
