@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.util.UUID;
 
@@ -12,19 +13,18 @@ import java.util.UUID;
 @Table(name = "students")
 @Data
 @Builder
-@NoArgsConstructor // Для JPA
-@AllArgsConstructor // Для Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@DynamicUpdate
 public class Student {
     @Id
     private UUID guid;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     private StudentGroup group;
 
     private Integer course;
-
-    @Column(name = "start_year")
     private Integer startYear;
 
     @ManyToOne(fetch = FetchType.LAZY)

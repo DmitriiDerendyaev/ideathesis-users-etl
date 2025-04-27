@@ -4,6 +4,11 @@ spring:
     username: user
     password: user
     driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+      max-lifetime: 600000
 
   jpa:
     hibernate:
@@ -11,7 +16,11 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        format_sql: true
+        format_sql: false
+        jdbc:
+          batch_size: 500
+        order_inserts: true
+        order_updates: true
 
   batch:
     jdbc:
@@ -22,7 +31,7 @@ spring:
 graphql:
   webclient:
 #    endpoint: http://docker.mospolytech.ru:3345/userinfo/graphql
-    endpoint: http://localhost:8085/userinfo/graphql
+     endpoint: http://localhost:8085/userinfo/graphql
 
 logging:
   level:
