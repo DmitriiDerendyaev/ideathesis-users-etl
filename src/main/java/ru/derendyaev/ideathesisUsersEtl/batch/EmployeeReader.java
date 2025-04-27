@@ -50,7 +50,7 @@ public class EmployeeReader implements ItemReader<EmployeeDTO>, InitializingBean
     public EmployeeDTO read() {
         if (nextIndex < employeeList.size()) {
             EmployeeDTO employee = employeeList.get(nextIndex++);
-            logger.debug("Reading employee {}", employee);
+            logger.info("Reading employee {}", employee);
             return employee;
         } else {
             return null;

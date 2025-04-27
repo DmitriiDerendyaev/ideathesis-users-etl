@@ -5,7 +5,6 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.job.builder.JobBuilder;
-import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
@@ -17,9 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.batch.core.configuration.annotation.StepScope;
-import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.transaction.PlatformTransactionManager;
-import ru.derendyaev.ideathesisUsersEtl.batch.config.JobCompletionNotificationListener;
 import ru.derendyaev.ideathesisUsersEtl.batch.config.StepExecutionLogger;
 import ru.derendyaev.ideathesisUsersEtl.client.GraphQLClient;
 import ru.derendyaev.ideathesisUsersEtl.dto.StudentDTO;
@@ -56,35 +54,37 @@ public class BatchConfig {
 
     @Autowired
     private EmployeeMapper employeeMapper;
+
+    @Autowired
+    private CustomStudentWriter customStudentWriter; // Добавляем автовайр кастомного writer'а
+
     @Bean
     public Job etlJob() {
         return new JobBuilder("etlJob", jobRepository)
                 .incrementer(new RunIdIncrementer())
                 .start(studentStep())
                 .next(employeeStep())
-//                .listener(jobExecution -> {
-//                    logger.info("Job {} completed with status {}",
-//                            jobExecution.getJobInstance().getJobName(),
-//                            jobExecution.getStatus());
-//                })
                 .build();
     }
 
     @Bean
     public Step studentStep() {
         return new StepBuilder("studentStep", jobRepository)
-                .<StudentDTO, Student>chunk(10, transactionManager)
+                .<StudentDTO, Student>chunk(1, transactionManager)
                 .reader(studentReader())
                 .processor(studentProcessor())
-                .writer(studentWriter())
+                .writer(customStudentWriter) // Используем кастомный writer
                 .listener(new StepExecutionLogger())
+                .faultTolerant()
+                .skip(OptimisticLockingFailureException.class)
+                .skipLimit(10)
                 .build();
     }
 
     @Bean
     public Step employeeStep() {
         return new StepBuilder("employeeStep", jobRepository)
-                .<EmployeeDTO, Employee>chunk(10, transactionManager)
+                .<EmployeeDTO, Employee>chunk(1, transactionManager)
                 .reader(employeeReader())
                 .processor(employeeProcessor())
                 .writer(employeeWriter())
@@ -102,18 +102,9 @@ public class BatchConfig {
     @StepScope
     public ItemProcessor<StudentDTO, Student> studentProcessor() {
         return studentDTO -> {
-            logger.debug("Processing student: {}", studentDTO);
+            logger.info("Processing student: {}", studentDTO);
             return studentMapper.map(studentDTO);
         };
-    }
-
-    @Bean
-    @StepScope
-    public ItemWriter<Student> studentWriter() {
-        RepositoryItemWriter<Student> writer = new RepositoryItemWriter<>();
-        writer.setRepository(studentRepository);
-        writer.setMethodName("save");
-        return writer;
     }
 
     @Bean
@@ -126,7 +117,7 @@ public class BatchConfig {
     @StepScope
     public ItemProcessor<EmployeeDTO, Employee> employeeProcessor() {
         return employeeDTO -> {
-            logger.debug("Processing employee: {}", employeeDTO);
+            logger.info("Processing employee: {}", employeeDTO);
             return employeeMapper.map(employeeDTO);
         };
     }

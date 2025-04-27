@@ -20,9 +20,9 @@ public class EmployeeProcessor implements ItemProcessor<EmployeeDTO, Employee> {
 
     @Override
     public Employee process(EmployeeDTO item) {
-        logger.debug("Processing employee DTO: {}", item);
+        logger.info("Processing employee DTO: {}", item);
         Employee employee = employeeMapper.map(item);
-        logger.debug("Mapped to entity: {}", employee);
+        logger.info("Mapped to entity: {}", employee);
         return employee;
     }
 }

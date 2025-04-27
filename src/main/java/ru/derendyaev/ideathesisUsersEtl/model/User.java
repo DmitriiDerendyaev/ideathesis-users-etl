@@ -2,7 +2,10 @@ package ru.derendyaev.ideathesisUsersEtl.model;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 import java.util.Date;
@@ -11,6 +14,9 @@ import java.util.UUID;
 @Entity
 @Table(name = "users") // Исправлено на "users" вместо зарезервированного "user"
 @Data
+@Builder
+@NoArgsConstructor // Для JPA
+@AllArgsConstructor // Для Builder
 public class User {
     @Id
     private UUID guid;

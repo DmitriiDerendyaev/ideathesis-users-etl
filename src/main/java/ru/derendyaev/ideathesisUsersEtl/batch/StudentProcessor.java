@@ -20,9 +20,9 @@ public class StudentProcessor implements ItemProcessor<StudentDTO, Student> {
 
     @Override
     public Student process(StudentDTO item) {
-        logger.debug("Processing student DTO: {}", item);
+        logger.info("Processing student DTO: {}", item);
         Student student = studentMapper.map(item);
-        logger.debug("Mapped to entity: {}", student);
+        logger.info("Mapped to entity: {}", student);
         return student;
     }
 }
