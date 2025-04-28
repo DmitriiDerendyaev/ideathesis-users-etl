@@ -63,7 +63,9 @@ public class GraphQLClient {
 
         try {
             Map<String, Object> jsonResponse = objectMapper.readValue(response, Map.class);
-            return objectMapper.convertValue(jsonResponse.get("data"), EmployeesResponse.class);
+            Map<String, Object> data = (Map<String, Object>) jsonResponse.get("data");
+            Map<String, Object> employees = (Map<String, Object>) data.get("employees");
+            return objectMapper.convertValue(employees, EmployeesResponse.class);
         } catch (Exception e) {
             throw new RuntimeException("Failed to parse GraphQL response", e);
         }
