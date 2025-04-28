@@ -23,6 +23,7 @@ import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import ru.derendyaev.ideathesisUsersEtl.batch.config.StepExecutionLogger;
 import ru.derendyaev.ideathesisUsersEtl.client.GraphQLClient;
 import ru.derendyaev.ideathesisUsersEtl.dto.*;
@@ -267,7 +268,7 @@ public class BatchConfig {
     private Employee updateExistingEmployee(Employee existing, EmployeeDTO dto) {
         existing.setFullName(dto.getFullName());
         existing.setSurname(dto.getSurname());
-        existing.setEmail(dto.getMail());
+        existing.setEmail(StringUtils.hasText(dto.getMail()) ? dto.getMail() : null);
         existing.setDateOfBirth(parseDate(dto.getDateOfBirth()));
 
         updateEmployeeEmployments(existing, dto.getEmployeeEmployments());
@@ -287,7 +288,7 @@ public class BatchConfig {
         employee.setUser(user);
         employee.setFullName(dto.getFullName());
         employee.setSurname(dto.getSurname());
-        employee.setEmail(dto.getMail());
+        employee.setEmail(StringUtils.hasText(dto.getMail()) ? dto.getMail() : null);
         employee.setDateOfBirth(parseDate(dto.getDateOfBirth()));
 
         Set<EmployeeEmployment> employments = processEmployments(dto.getEmployeeEmployments(), employee);

@@ -2,17 +2,22 @@ package ru.derendyaev.ideathesisUsersEtl.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
 @Table(name = "employee_employments")
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class EmployeeEmployment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "employee_guid")
+    @ToString.Exclude
     private Employee employee;
 
     @ManyToOne
