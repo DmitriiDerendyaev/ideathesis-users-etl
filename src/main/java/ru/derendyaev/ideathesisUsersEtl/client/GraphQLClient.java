@@ -1,21 +1,26 @@
 package ru.derendyaev.ideathesisUsersEtl.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import ru.derendyaev.ideathesisUsersEtl.dto.EmployeesResponse;
 import ru.derendyaev.ideathesisUsersEtl.dto.StudentsResponse;
 
+import java.beans.Introspector;
+import java.time.Duration;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
 public class GraphQLClient {
 
-    @Value("${graphql.webclient.endpoint}")
-    private String endpoint;
+    private static final Logger logger = LoggerFactory.getLogger(GraphQLClient.class);
 
     private final WebClient webClient;
     private final ObjectMapper objectMapper;
@@ -29,45 +34,53 @@ public class GraphQLClient {
 
     public StudentsResponse getStudents() {
         String query = "{ students { items { fullName guid firstName surname middleName department group course startYear degreeLevel degreeForm } } }";
-        Map<String, String> request = new HashMap<>();
-        request.put("query", query);
-
-        Mono<String> responseMono = webClient.post()
-                .bodyValue(request)
-                .retrieve()
-                .bodyToMono(String.class);
-
-        String response = responseMono.block();
-
-        try {
-            Map<String, Object> jsonResponse = objectMapper.readValue(response, Map.class);
-            Map<String, Object> data = (Map<String, Object>) jsonResponse.get("data");
-            Map<String, Object> students = (Map<String, Object>) data.get("students");
-            return objectMapper.convertValue(students, StudentsResponse.class);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to parse GraphQL response", e);
-        }
+        return executeQuery(query, "students", StudentsResponse.class);
     }
 
     public EmployeesResponse getEmployees() {
         String query = "{ employees { items { fullName guid surname mail dateOfBirth employeeEmployments { jobTitle staffCategory employmentType subDivision subDivisionGuid jobState } } } }";
-        Map<String, String> request = new HashMap<>();
-        request.put("query", query);
+        return executeQuery(query, "employees", EmployeesResponse.class);
+    }
 
-        Mono<String> responseMono = webClient.post()
+    /**
+     * Выполняет GraphQL-запрос и возвращает нужную часть ответа в указанном типе.
+     */
+    private <T> T executeQuery(String query, String dataKey, Class<T> responseType) {
+        Map<String, String> request = Collections.singletonMap("query", query);
+
+        String response = webClient.post()
                 .bodyValue(request)
                 .retrieve()
-                .bodyToMono(String.class);
+                .onStatus(HttpStatusCode::is4xxClientError, resp -> {
+                    logger.error("GraphQL server responded with error status code: {}", resp.statusCode());
+                    return Mono.error(new RuntimeException("GraphQL request failed with HTTP error"));
+                })
+                .bodyToMono(String.class)
+                .timeout(Duration.ofSeconds(10))
+                .block();
 
-        String response = responseMono.block();
+        if (response == null || response.isEmpty()) {
+            throw new RuntimeException("Empty response from GraphQL server");
+        }
 
         try {
             Map<String, Object> jsonResponse = objectMapper.readValue(response, Map.class);
             Map<String, Object> data = (Map<String, Object>) jsonResponse.get("data");
-            Map<String, Object> employees = (Map<String, Object>) data.get("employees");
-            return objectMapper.convertValue(employees, EmployeesResponse.class);
+
+            if (data == null) {
+                throw new RuntimeException("Missing 'data' field in GraphQL response");
+            }
+
+            Object resultData = data.get(dataKey);
+
+            if (resultData == null) {
+                throw new RuntimeException("Missing '" + dataKey + "' field in GraphQL response");
+            }
+
+            return objectMapper.convertValue(resultData, responseType);
         } catch (Exception e) {
-            throw new RuntimeException("Failed to parse GraphQL response", e);
+            logger.error("Failed to parse GraphQL response for key '{}': {}", dataKey, response, e);
+            throw new RuntimeException("Failed to parse GraphQL response for key: " + dataKey, e);
         }
     }
 }
