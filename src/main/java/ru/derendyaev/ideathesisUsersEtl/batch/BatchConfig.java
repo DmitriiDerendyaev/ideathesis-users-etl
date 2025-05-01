@@ -10,6 +10,7 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.batch.core.configuration.annotation.StepScope;
@@ -94,19 +95,8 @@ public class BatchConfig {
     @Bean
     @StepScope
     public ItemReader<StudentDTO> studentReader() {
-        return new ItemReader<>() {
-            private Iterator<StudentDTO> iterator;
-
-            @Override
-            @Transactional(readOnly = true)
-            public StudentDTO read() {
-                if (iterator == null) {
-                    StudentsResponse response = graphQLClient.getStudents();
-                    iterator = response.getItems().iterator();
-                }
-                return iterator.hasNext() ? iterator.next() : null;
-            }
-        };
+        List<StudentDTO> students = graphQLClient.getAllStudents();
+        return new ListItemReader<>(students);
     }
 
     @Bean
@@ -232,19 +222,8 @@ public class BatchConfig {
     @Bean
     @StepScope
     public ItemReader<EmployeeDTO> employeeReader() {
-        return new ItemReader<>() {
-            private Iterator<EmployeeDTO> iterator;
-
-            @Override
-            @Transactional(readOnly = true)
-            public EmployeeDTO read() {
-                if (iterator == null) {
-                    EmployeesResponse response = graphQLClient.getEmployees();
-                    iterator = response.getItems().iterator();
-                }
-                return iterator.hasNext() ? iterator.next() : null;
-            }
-        };
+        List<EmployeeDTO> employees = graphQLClient.getAllEmployees();
+        return new ListItemReader<>(employees);
     }
 
     @Bean

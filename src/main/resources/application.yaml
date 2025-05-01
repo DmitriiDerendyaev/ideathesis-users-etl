@@ -37,8 +37,8 @@ spring:
 
 graphql:
   webclient:
-#    endpoint: http://docker.mospolytech.ru:3345/userinfo/graphql
-     endpoint: http://localhost:8085/userinfo/graphql
+    endpoint: http://docker.mospolytech.ru:3345/userinfo/graphql
+#     endpoint: http://localhost:8085/userinfo/graphql
 
 logging:
   level:

@@ -8,19 +8,21 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import ru.derendyaev.ideathesisUsersEtl.dto.EmployeeDTO;
 import ru.derendyaev.ideathesisUsersEtl.dto.EmployeesResponse;
+import ru.derendyaev.ideathesisUsersEtl.dto.StudentDTO;
 import ru.derendyaev.ideathesisUsersEtl.dto.StudentsResponse;
 
 import java.beans.Introspector;
 import java.time.Duration;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.function.BiFunction;
 
 @Component
 public class GraphQLClient {
 
     private static final Logger logger = LoggerFactory.getLogger(GraphQLClient.class);
+    private static final int PAGE_SIZE = 100;
 
     private final WebClient webClient;
     private final ObjectMapper objectMapper;
@@ -32,22 +34,41 @@ public class GraphQLClient {
         this.objectMapper = objectMapper;
     }
 
-    public StudentsResponse getStudents() {
-        String query = "{ students { items { fullName guid firstName surname middleName department group course startYear degreeLevel degreeForm } } }";
-        return executeQuery(query, "students", StudentsResponse.class);
+    public List<StudentDTO> getAllStudents() {
+        return getAllItems(this::getStudentsPage, "students");
     }
 
-    public EmployeesResponse getEmployees() {
-        String query = "{ employees { items { fullName guid surname mail dateOfBirth employeeEmployments { jobTitle staffCategory employmentType subDivision subDivisionGuid jobState } } } }";
-        return executeQuery(query, "employees", EmployeesResponse.class);
+    public List<EmployeeDTO> getAllEmployees() {
+        return getAllItems(this::getEmployeesPage, "employees");
     }
 
-    /**
-     * Выполняет GraphQL-запрос и возвращает нужную часть ответа в указанном типе.
-     */
+    private <T> List<T> getAllItems(BiFunction<Integer, Integer, List<T>> pageFetcher, String entityName) {
+        List<T> allItems = new ArrayList<>();
+        int skip = 0;
+        List<T> currentPage;
+
+        do {
+            currentPage = pageFetcher.apply(PAGE_SIZE, skip);
+            allItems.addAll(currentPage);
+            skip += PAGE_SIZE;
+            logger.info("Fetched {} {} items (total: {})", currentPage.size(), entityName, allItems.size());
+        } while (!currentPage.isEmpty());
+
+        return allItems;
+    }
+
+    private List<StudentDTO> getStudentsPage(int take, int skip) {
+        String query = String.format("{ students(take: %d, skip: %d) { items { fullName guid firstName surname middleName department group course startYear degreeLevel degreeForm } } }", take, skip);
+        return executeQuery(query, "students", StudentsResponse.class).getItems();
+    }
+
+    private List<EmployeeDTO> getEmployeesPage(int take, int skip) {
+        String query = String.format("{ employees(take: %d, skip: %d) { items { fullName guid surname mail dateOfBirth employeeEmployments { jobTitle staffCategory employmentType subDivision subDivisionGuid jobState } } } }", take, skip);
+        return executeQuery(query, "employees", EmployeesResponse.class).getItems();
+    }
+
     private <T> T executeQuery(String query, String dataKey, Class<T> responseType) {
         Map<String, String> request = Collections.singletonMap("query", query);
-
         String response = webClient.post()
                 .bodyValue(request)
                 .retrieve()
