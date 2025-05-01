@@ -8,4 +8,6 @@ import java.util.UUID;
 
 public interface SubdivisionRepository extends JpaRepository<Subdivision, Long> {
     Optional<Subdivision> findByGuid(UUID guid);
+
+    Optional<Subdivision> findByName(String name);
 }
