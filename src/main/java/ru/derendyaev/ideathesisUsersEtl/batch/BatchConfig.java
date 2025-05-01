@@ -326,11 +326,63 @@ public class BatchConfig {
         user.setLastName(dto.getSurname());
     }
 
-    // Методы для обработки трудоустройства
     private void updateEmployeeEmployments(Employee employee, List<EmployeeEmploymentDTO> dtos) {
-        Set<EmployeeEmployment> existing = employee.getEmployeeEmployments();
-        existing.clear();
-        existing.addAll(processEmployments(dtos, employee));
+        Set<EmployeeEmployment> currentEmployments = employee.getEmployeeEmployments();
+        Set<EmployeeEmployment> updatedEmployments = new HashSet<>();
+
+        for (EmployeeEmploymentDTO dto : dtos) {
+            EmployeeEmployment newEmployment = buildEmploymentFromDTO(dto, employee);
+
+            // Поиск существующей записи с теми же ключевыми полями
+            Optional<EmployeeEmployment> existing = currentEmployments.stream()
+                    .filter(e -> employmentEqualsIgnoreId(e, newEmployment))
+                    .findFirst();
+
+            if (existing.isPresent()) {
+                EmployeeEmployment existingEmployment = existing.get();
+                if (!employmentEqualsFull(existingEmployment, newEmployment)) {
+                    // Обновляем поля, если что-то изменилось
+                    existingEmployment.setJobState(newEmployment.getJobState());
+                    existingEmployment.setJobTitle(newEmployment.getJobTitle());
+                    existingEmployment.setStaffCategory(newEmployment.getStaffCategory());
+                    existingEmployment.setEmploymentType(newEmployment.getEmploymentType());
+                    existingEmployment.setSubdivision(newEmployment.getSubdivision());
+                }
+                updatedEmployments.add(existingEmployment);
+            } else {
+                // Такой записи нет — добавляем новую
+                updatedEmployments.add(newEmployment);
+            }
+        }
+
+        // Обновляем сет трудоустройств у сотрудника
+        currentEmployments.clear();
+        currentEmployments.addAll(updatedEmployments);
+    }
+
+    private EmployeeEmployment buildEmploymentFromDTO(EmployeeEmploymentDTO dto, Employee employee) {
+        EmployeeEmployment employment = new EmployeeEmployment();
+        employment.setEmployee(employee);
+        employment.setJobTitle(getCachedJobTitle(dto.getJobTitle()));
+        employment.setStaffCategory(getCachedStaffCategory(dto.getStaffCategory()));
+        employment.setEmploymentType(getCachedEmploymentType(dto.getEmploymentType()));
+        employment.setSubdivision(getCachedSubdivision(dto.getSubDivision(), dto.getSubDivisionGuid()));
+        employment.setJobState(dto.getJobState());
+        return employment;
+    }
+
+    // Сравнение по всем полям, кроме id
+    private boolean employmentEqualsIgnoreId(EmployeeEmployment a, EmployeeEmployment b) {
+        return Objects.equals(a.getJobTitle(), b.getJobTitle()) &&
+                Objects.equals(a.getStaffCategory(), b.getStaffCategory()) &&
+                Objects.equals(a.getEmploymentType(), b.getEmploymentType()) &&
+                Objects.equals(a.getSubdivision(), b.getSubdivision());
+    }
+
+    // Полное сравнение, включая jobState
+    private boolean employmentEqualsFull(EmployeeEmployment a, EmployeeEmployment b) {
+        return employmentEqualsIgnoreId(a, b) &&
+                Objects.equals(a.getJobState(), b.getJobState());
     }
 
     private Set<EmployeeEmployment> processEmployments(List<EmployeeEmploymentDTO> dtos, Employee employee) {
