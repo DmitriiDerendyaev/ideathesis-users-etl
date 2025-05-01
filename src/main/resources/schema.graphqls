@@ -1,0 +1,44 @@
+type Query {
+    students: StudentsResponse
+    employees: EmployeesResponse
+}
+
+type StudentsResponse {
+    items: [Student]
+}
+
+type EmployeesResponse {
+    items: [Employee]
+}
+
+type Student {
+    fullName: String
+    guid: ID!
+    firstName: String
+    surname: String
+    middleName: String
+    department: String
+    group: String
+    course: Int
+    startYear: Int
+    degreeLevel: String
+    degreeForm: String
+}
+
+type Employee {
+    fullName: String
+    guid: ID!
+    surname: String
+    mail: String
+    dateOfBirth: String
+    employeeEmployments: [EmployeeEmployment]
+}
+
+type EmployeeEmployment {
+    jobTitle: String
+    staffCategory: String
+    employmentType: String
+    subDivision: String
+    subDivisionGuid: ID!
+    jobState: String
+}

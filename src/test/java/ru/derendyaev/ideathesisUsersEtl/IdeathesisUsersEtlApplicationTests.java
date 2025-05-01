@@ -1,4 +1,4 @@
-package ru.derendyaev.ideathesis_users_etl;
+package ru.derendyaev.ideathesisUsersEtl;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
