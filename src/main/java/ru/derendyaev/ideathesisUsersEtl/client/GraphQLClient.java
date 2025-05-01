@@ -67,6 +67,16 @@ public class GraphQLClient {
         return executeQuery(query, "employees", EmployeesResponse.class).getItems();
     }
 
+    public List<StudentDTO> getStudentsByGroup(String groupName) {
+        return getAllItems((take, skip) -> getStudentsPageByGroup(groupName, take, skip), "students");
+    }
+
+    private List<StudentDTO> getStudentsPageByGroup(String groupName, int take, int skip) {
+        String query = String.format("{ students(take: %d, skip: %d, where: { group: { eq: \"%s\" } }) { items { fullName guid firstName surname middleName department group course startYear degreeLevel degreeForm } } }",
+                take, skip, groupName);
+        return executeQuery(query, "students", StudentsResponse.class).getItems();
+    }
+
     private <T> T executeQuery(String query, String dataKey, Class<T> responseType) {
         Map<String, String> request = Collections.singletonMap("query", query);
         String response = webClient.post()

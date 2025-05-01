@@ -10,10 +10,7 @@ import org.springframework.batch.core.repository.JobExecutionAlreadyRunningExcep
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -27,37 +24,62 @@ public class JobController {
     private static final Logger logger = LoggerFactory.getLogger(JobController.class);
 
     private final JobLauncher jobLauncher;
-    private final Job importJob; // Это ваша джоба из BatchConfig
+    private final Job importJob; // Полная джоба
+    private final Job importStudentsOnlyJob; // Только студенты
     private final JobExplorer jobExplorer;
 
     /**
-     * Запуск джобы вручную через POST /api/jobs/start
+     * Запуск полной джобы (студенты + преподаватели)
      */
     @PostMapping("/start")
-    public ResponseEntity<String> startJob() {
+    public ResponseEntity<String> startFullJob() {
+        return startJob(importJob, "full");
+    }
+
+    /**
+     * Запуск джобы только для студентов по группе
+     */
+    @PostMapping("/start/by-group")
+    public ResponseEntity<String> startStudentOnlyJobByGroup(@RequestParam("group") String groupName) {
+        if (groupName == null || groupName.isBlank()) {
+            return ResponseEntity.badRequest().body("Group name is required");
+        }
+        return startJobWithGroup(importStudentsOnlyJob, groupName);
+    }
+
+    private ResponseEntity<String> startJob(Job job, String jobType) {
         try {
             JobParameters jobParameters = new JobParametersBuilder()
+                    .addString("jobType", jobType)
                     .addDate("run.date", new Date())
                     .addLong("startAt", System.currentTimeMillis())
                     .toJobParameters();
 
-            logger.info("Starting ETL job manually via REST at {}", new Date());
-
-            JobExecution execution = jobLauncher.run(importJob, jobParameters);
-            logger.info("Job started with ID: {}", execution.getId());
+            JobExecution execution = jobLauncher.run(job, jobParameters);
 
             return ResponseEntity.ok("Job started successfully. Execution ID: " + execution.getId());
-        } catch (JobExecutionAlreadyRunningException e) {
-            logger.warn("Job is already running.");
-            return ResponseEntity.status(503).body("Job is already running.");
-        } catch (JobRestartException | JobInstanceAlreadyCompleteException e) {
-            logger.error("Error restarting job", e);
-            return ResponseEntity.status(500).body("Error restarting job: " + e.getMessage());
         } catch (Exception e) {
-            logger.error("Failed to start job", e);
             return ResponseEntity.status(500).body("Failed to start job: " + e.getMessage());
         }
     }
+
+    private ResponseEntity<String> startJobWithGroup(Job job, String groupName) {
+        try {
+            JobParameters jobParameters = new JobParametersBuilder()
+                    .addString("studentGroup", groupName)
+                    .addString("jobType", "students-only")
+                    .addDate("run.date", new Date())
+                    .addLong("startAt", System.currentTimeMillis())
+                    .toJobParameters();
+
+            JobExecution execution = jobLauncher.run(job, jobParameters);
+
+            return ResponseEntity.ok("Job for group '" + groupName + "' started successfully. Execution ID: " + execution.getId());
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Failed to start job for group '" + groupName + "': " + e.getMessage());
+        }
+    }
+
 
     /**
      * Получение статуса последнего запуска джобы через GET /api/jobs/status

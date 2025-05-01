@@ -11,6 +11,7 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.support.ListItemReader;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.batch.core.configuration.annotation.StepScope;
@@ -77,10 +78,18 @@ public class BatchConfig {
     }
 
     @Bean
+    public Job importStudentsOnlyJob(JobRepository jobRepository) {
+        return new JobBuilder("importStudentsOnlyJob", jobRepository)
+                .incrementer(new RunIdIncrementer())
+                .start(studentStep())
+                .build();
+    }
+
+    @Bean
     public Step studentStep() {
         return new StepBuilder("studentStep", jobRepository)
                 .<StudentDTO, Student>chunk(500, transactionManager)
-                .reader(studentReader())
+                .reader(studentReader(null))
                 .processor(studentProcessor())
                 .writer(studentWriter())
                 .faultTolerant()
@@ -92,10 +101,15 @@ public class BatchConfig {
                 .build();
     }
 
-    @Bean
     @StepScope
-    public ItemReader<StudentDTO> studentReader() {
-        List<StudentDTO> students = graphQLClient.getAllStudents();
+    @Bean
+    public ItemReader<StudentDTO> studentReader(@Value("#{jobParameters['studentGroup']}") String groupName) {
+        List<StudentDTO> students;
+        if (groupName == null || groupName.isEmpty()) {
+            students = graphQLClient.getAllStudents();
+        } else {
+            students = graphQLClient.getStudentsByGroup(groupName);
+        }
         return new ListItemReader<>(students);
     }
 
