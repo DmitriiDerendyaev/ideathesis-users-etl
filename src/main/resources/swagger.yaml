@@ -1,0 +1,144 @@
+openapi: 3.0.1
+info:
+  title: Job Controller API
+  description: API for launching and monitoring batch jobs in the system.
+  version: "1.0"
+servers:
+  - url: http://localhost:8080
+    description: Local server
+
+paths:
+  /api/jobs/start:
+    post:
+      summary: Запуск полной джобы (студенты + преподаватели)
+      responses:
+        '200':
+          description: Успешный запуск джобы
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: string
+        '500':
+          description: Ошибка при запуске джобы
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: string
+
+  /api/jobs/start/by-group:
+    post:
+      summary: Запуск джобы только для студентов по группе
+      parameters:
+        - name: group
+          in: query
+          required: true
+          schema:
+            type: string
+            example: "Group-A1"
+      responses:
+        '200':
+          description: Успешный запуск джобы для группы
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: string
+        '400':
+          description: Группа не указана
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: string
+        '500':
+          description: Ошибка при запуске джобы
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  body:
+                    type: string
+
+  /api/jobs/status:
+    get:
+      summary: Получение статуса последней выполненной джобы
+      responses:
+        '200':
+          description: Статус джобы
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobStatusResponse'
+
+components:
+  schemas:
+    JobStatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "COMPLETED"
+        startTime:
+          type: string
+          format: date-time
+          example: "2025-04-05T10:00:00Z"
+        endTime:
+          type: string
+          format: date-time
+          example: "2025-04-05T10:05:00Z"
+        duration:
+          type: string
+          example: "PT5M"
+        exitCode:
+          type: string
+          example: "COMPLETED"
+        exitMessage:
+          type: string
+          example: ""
+        parameters:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            jobType: "full"
+            run.date: "20250405100000"
+        stepStatuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/StepStatus'
+
+    StepStatus:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "studentImportStep"
+        status:
+          type: string
+          example: "COMPLETED"
+        readCount:
+          type: integer
+          example: 100
+        writeCount:
+          type: integer
+          example: 100
+        skipCount:
+          type: integer
+          example: 0
+        processSkipCount:
+          type: integer
+          example: 0
+        duration:
+          type: string
+          example: "PT2M"

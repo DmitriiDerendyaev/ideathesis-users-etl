@@ -1,17 +1,18 @@
 -- =============================
--- Таблица пользователей (универсальная)
+-- Таблица пользователей
 -- =============================
 CREATE TABLE users (
     guid UUID PRIMARY KEY,
-    full_name VARCHAR(255) NOT NULL,
+    full_name VARCHAR(255),
     first_name VARCHAR(255),
     last_name VARCHAR(255),
     middle_name VARCHAR(255),
     email VARCHAR(255) UNIQUE,
     phone VARCHAR(20),
     user_type VARCHAR(20) CHECK (user_type IN ('student', 'employee')) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    version BIGINT,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
 );
 
 -- =============================
@@ -49,7 +50,8 @@ CREATE TABLE students (
     start_year INT,
     department_id INT REFERENCES departments(id),
     degree_level_id INT REFERENCES degree_levels(id),
-    degree_form_id INT REFERENCES degree_forms(id)
+    degree_form_id INT REFERENCES degree_forms(id),
+    version BIGINT
 );
 
 -- =============================
@@ -87,7 +89,11 @@ CREATE TABLE subdivisions (
 
 CREATE TABLE employees (
     guid UUID PRIMARY KEY REFERENCES users(guid) ON DELETE CASCADE,
-    date_of_birth DATE
+    full_name VARCHAR(255),
+    surname VARCHAR(255),
+    email VARCHAR(255) UNIQUE,
+    date_of_birth DATE,
+    version BIGINT
 );
 
 -- =============================

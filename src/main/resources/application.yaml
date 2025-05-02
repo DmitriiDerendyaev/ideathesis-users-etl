@@ -22,6 +22,13 @@ spring:
         order_inserts: true
         order_updates: true
 
+  security:
+    user:
+      name: admin
+      password: admin
+      roles:
+        - ADMIN
+
   batch:
     jdbc:
       initialize-schema: always  # Это создаст таблицы Spring Batch
@@ -30,8 +37,8 @@ spring:
 
 graphql:
   webclient:
-#    endpoint: http://docker.mospolytech.ru:3345/userinfo/graphql
-     endpoint: http://localhost:8085/userinfo/graphql
+    endpoint: http://docker.mospolytech.ru:3345/userinfo/graphql
+#     endpoint: http://localhost:8085/userinfo/graphql
 
 logging:
   level:

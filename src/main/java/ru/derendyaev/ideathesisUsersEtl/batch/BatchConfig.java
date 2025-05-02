@@ -1,7 +1,5 @@
 package ru.derendyaev.ideathesisUsersEtl.batch;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -9,18 +7,16 @@ import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.core.step.skip.AlwaysSkipItemSkipPolicy;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.data.RepositoryItemWriter;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.batch.item.support.ListItemReader;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.OptimisticLockingFailureException;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -82,10 +78,18 @@ public class BatchConfig {
     }
 
     @Bean
+    public Job importStudentsOnlyJob(JobRepository jobRepository) {
+        return new JobBuilder("importStudentsOnlyJob", jobRepository)
+                .incrementer(new RunIdIncrementer())
+                .start(studentStep())
+                .build();
+    }
+
+    @Bean
     public Step studentStep() {
         return new StepBuilder("studentStep", jobRepository)
                 .<StudentDTO, Student>chunk(500, transactionManager)
-                .reader(studentReader())
+                .reader(studentReader(null))
                 .processor(studentProcessor())
                 .writer(studentWriter())
                 .faultTolerant()
@@ -97,22 +101,16 @@ public class BatchConfig {
                 .build();
     }
 
-    @Bean
     @StepScope
-    public ItemReader<StudentDTO> studentReader() {
-        return new ItemReader<>() {
-            private Iterator<StudentDTO> iterator;
-
-            @Override
-            @Transactional(readOnly = true)
-            public StudentDTO read() {
-                if (iterator == null) {
-                    StudentsResponse response = graphQLClient.getStudents();
-                    iterator = response.getItems().iterator();
-                }
-                return iterator.hasNext() ? iterator.next() : null;
-            }
-        };
+    @Bean
+    public ItemReader<StudentDTO> studentReader(@Value("#{jobParameters['studentGroup']}") String groupName) {
+        List<StudentDTO> students;
+        if (groupName == null || groupName.isEmpty()) {
+            students = graphQLClient.getAllStudents();
+        } else {
+            students = graphQLClient.getStudentsByGroup(groupName);
+        }
+        return new ListItemReader<>(students);
     }
 
     @Bean
@@ -229,8 +227,8 @@ public class BatchConfig {
                 .faultTolerant()
                 .skip(DuplicateKeyException.class)
                 .skipLimit(100)
-                .retryLimit(3)
                 .retry(OptimisticLockingFailureException.class)
+                .retryLimit(3)
                 .listener(stepExecutionLogger)
                 .build();
     }
@@ -238,19 +236,8 @@ public class BatchConfig {
     @Bean
     @StepScope
     public ItemReader<EmployeeDTO> employeeReader() {
-        return new ItemReader<>() {
-            private Iterator<EmployeeDTO> iterator;
-
-            @Override
-            @Transactional(readOnly = true)
-            public EmployeeDTO read() {
-                if (iterator == null) {
-                    EmployeesResponse response = graphQLClient.getEmployees();
-                    iterator = response.getItems().iterator();
-                }
-                return iterator.hasNext() ? iterator.next() : null;
-            }
-        };
+        List<EmployeeDTO> employees = graphQLClient.getAllEmployees();
+        return new ListItemReader<>(employees);
     }
 
     @Bean
@@ -301,12 +288,18 @@ public class BatchConfig {
     @StepScope
     public ItemWriter<Employee> employeeWriter() {
         return items -> {
-            List<Employee> employees = new ArrayList<>(items.getItems());
-
-            userRepository.saveAll(employees.stream()
-                    .map(Employee::getUser)
-                    .collect(Collectors.toList()));
-
+            List<Employee> employees = new ArrayList<>();
+            for (Employee item : items.getItems()) {
+                UUID guid = item.getGuid();
+                Employee existing = employeeRepository.findByGuid(guid).orElse(null);
+                if (existing != null) {
+                    // Обновляем существующую запись
+                    item.setGuid(existing.getGuid());
+                    item.getUser().setGuid(existing.getUser().getGuid());
+                }
+                employees.add(item);
+            }
+            userRepository.saveAll(employees.stream().map(Employee::getUser).toList());
             employeeRepository.saveAll(employees);
         };
     }
@@ -333,7 +326,6 @@ public class BatchConfig {
         for (EmployeeEmploymentDTO dto : dtos) {
             EmployeeEmployment newEmployment = buildEmploymentFromDTO(dto, employee);
 
-            // Поиск существующей записи с теми же ключевыми полями
             Optional<EmployeeEmployment> existing = currentEmployments.stream()
                     .filter(e -> employmentEqualsIgnoreId(e, newEmployment))
                     .findFirst();
@@ -341,7 +333,6 @@ public class BatchConfig {
             if (existing.isPresent()) {
                 EmployeeEmployment existingEmployment = existing.get();
                 if (!employmentEqualsFull(existingEmployment, newEmployment)) {
-                    // Обновляем поля, если что-то изменилось
                     existingEmployment.setJobState(newEmployment.getJobState());
                     existingEmployment.setJobTitle(newEmployment.getJobTitle());
                     existingEmployment.setStaffCategory(newEmployment.getStaffCategory());
@@ -350,14 +341,24 @@ public class BatchConfig {
                 }
                 updatedEmployments.add(existingEmployment);
             } else {
-                // Такой записи нет — добавляем новую
                 updatedEmployments.add(newEmployment);
             }
         }
 
-        // Обновляем сет трудоустройств у сотрудника
         currentEmployments.clear();
         currentEmployments.addAll(updatedEmployments);
+    }
+
+    private boolean employmentEqualsIgnoreId(EmployeeEmployment a, EmployeeEmployment b) {
+        return Objects.equals(a.getJobTitle(), b.getJobTitle()) &&
+                Objects.equals(a.getStaffCategory(), b.getStaffCategory()) &&
+                Objects.equals(a.getEmploymentType(), b.getEmploymentType()) &&
+                Objects.equals(a.getSubdivision(), b.getSubdivision());
+    }
+
+    private boolean employmentEqualsFull(EmployeeEmployment a, EmployeeEmployment b) {
+        return employmentEqualsIgnoreId(a, b) &&
+                Objects.equals(a.getJobState(), b.getJobState());
     }
 
     private EmployeeEmployment buildEmploymentFromDTO(EmployeeEmploymentDTO dto, Employee employee) {
@@ -371,20 +372,6 @@ public class BatchConfig {
         return employment;
     }
 
-    // Сравнение по всем полям, кроме id
-    private boolean employmentEqualsIgnoreId(EmployeeEmployment a, EmployeeEmployment b) {
-        return Objects.equals(a.getJobTitle(), b.getJobTitle()) &&
-                Objects.equals(a.getStaffCategory(), b.getStaffCategory()) &&
-                Objects.equals(a.getEmploymentType(), b.getEmploymentType()) &&
-                Objects.equals(a.getSubdivision(), b.getSubdivision());
-    }
-
-    // Полное сравнение, включая jobState
-    private boolean employmentEqualsFull(EmployeeEmployment a, EmployeeEmployment b) {
-        return employmentEqualsIgnoreId(a, b) &&
-                Objects.equals(a.getJobState(), b.getJobState());
-    }
-
     private Set<EmployeeEmployment> processEmployments(List<EmployeeEmploymentDTO> dtos, Employee employee) {
         return dtos.stream().map(empDto -> {
             EmployeeEmployment employment = new EmployeeEmployment();
@@ -396,6 +383,24 @@ public class BatchConfig {
             employment.setJobState(empDto.getJobState());
             return employment;
         }).collect(Collectors.toSet());
+    }
+
+    private Employee saveOrUpdateEmployee(EmployeeDTO dto) {
+        UUID guid = UUID.fromString(dto.getGuid());
+        Employee employee = employeeRepository.findByGuid(guid)
+                .orElse(new Employee());
+
+        // Обновляем поля
+        employee.setGuid(guid);
+        employee.setFullName(dto.getFullName());
+        employee.setSurname(dto.getSurname());
+        employee.setEmail(StringUtils.hasText(dto.getMail()) ? dto.getMail() : null);
+        employee.setDateOfBirth(parseDate(dto.getDateOfBirth()));
+
+        // Обновляем трудоустройства
+        updateEmployeeEmployments(employee, dto.getEmployeeEmployments());
+
+        return employeeRepository.save(employee);
     }
 
     // Методы кэширования для новых справочников
@@ -423,7 +428,7 @@ public class BatchConfig {
     private Subdivision getCachedSubdivision(String name, String guid) {
         if (name == null || guid == null) return null;
         return subdivisionCache.computeIfAbsent(guid,
-                key -> subdivisionRepository.findByGuid(UUID.fromString(guid))
+                key -> subdivisionRepository.findByName(name)
                         .orElseGet(() -> subdivisionRepository.save(new Subdivision(name, UUID.fromString(guid)))));
     }
 
