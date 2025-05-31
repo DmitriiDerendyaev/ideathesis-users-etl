@@ -1,0 +1,31 @@
+@startuml
+actor "Batch Scheduler" as Scheduler
+participant "BatchConfig" as Config
+participant "ItemReader" as Reader
+participant "GraphQLClient" as GQLClient
+participant "UniversitySystem" as UniSystem
+
+== Student Data Retrieval ==
+Scheduler -> Config: Trigger importJob
+Config -> Reader: studentReader()
+Reader -> GQLClient: getStudents()
+GQLClient -> GQLClient: Prepare GraphQL query\n{ students { items { fullName guid ... } } }
+GQLClient -> UniSystem: POST /graphql\n{ query: "{ students { items { ... } } }" }
+UniSystem -> UniSystem: Process query
+UniSystem -> GQLClient: JSON Response\n{ "data": { "students": { "items": [...] } } }
+GQLClient -> GQLClient: Parse JSON to StudentsResponse
+GQLClient -> Reader: StudentsResponse
+Reader -> Config: Iterator<StudentDTO>
+
+== Employee Data Retrieval ==
+Config -> Reader: employeeReader()
+Reader -> GQLClient: getEmployees()
+GQLClient -> GQLClient: Prepare GraphQL query\n{ employees { items { fullName guid ... } } }
+GQLClient -> UniSystem: POST /graphql\n{ query: "{ employees { items { ... } } }" }
+UniSystem -> UniSystem: Process query
+UniSystem -> GQLClient: JSON Response\n{ "data": { "employees": { "items": [...] } } }
+GQLClient -> GQLClient: Parse JSON to EmployeesResponse
+GQLClient -> Reader: EmployeesResponse
+Reader -> Config: Iterator<EmployeeDTO>
+
+@enduml
