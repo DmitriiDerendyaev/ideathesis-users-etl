@@ -1,0 +1,106 @@
+@startuml
+entity "users" {
+  * guid : UUID <<PK>>
+  --
+  full_name : VARCHAR(255)
+  first_name : VARCHAR(255)
+  last_name : VARCHAR(255)
+  middle_name : VARCHAR(255)
+  email : VARCHAR(255) <<UNIQUE>>
+  phone : VARCHAR(20)
+  user_type : VARCHAR(20) <<CHECK ('student', 'employee')>>
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+entity "student_groups" {
+  * id : SERIAL <<PK>>
+  --
+  name : VARCHAR(255) <<UNIQUE>>
+}
+
+entity "departments" {
+  * id : SERIAL <<PK>>
+  --
+  name : VARCHAR(255) <<UNIQUE>>
+}
+
+entity "degree_levels" {
+  * id : SERIAL <<PK>>
+  --
+  name : VARCHAR(100) <<UNIQUE>>
+}
+
+entity "degree_forms" {
+  * id : SERIAL <<PK>>
+  --
+  name : VARCHAR(100) <<UNIQUE>>
+}
+
+entity "students" {
+  * guid : UUID <<PK,FK>>
+  --
+  group_id : INT <<FK>>
+  course : INT
+  start_year : INT
+  department_id : INT <<FK>>
+  degree_level_id : INT <<FK>>
+  degree_form_id : INT <<FK>>
+}
+
+entity "job_titles" {
+  * id : SERIAL <<PK>>
+  --
+  name : VARCHAR(255) <<UNIQUE>>
+}
+
+entity "staff_categories" {
+  * id : SERIAL <<PK>>
+  --
+  name : VARCHAR(255) <<UNIQUE>>
+}
+
+entity "employment_types" {
+  * id : SERIAL <<PK>>
+  --
+  name : VARCHAR(255) <<UNIQUE>>
+}
+
+entity "subdivisions" {
+  * id : SERIAL <<PK>>
+  --
+  name : VARCHAR(255) <<UNIQUE>>
+  guid : UUID <<UNIQUE>>
+}
+
+entity "employees" {
+  * guid : UUID <<PK,FK>>
+  --
+  date_of_birth : DATE
+}
+
+entity "employee_employments" {
+  * id : SERIAL <<PK>>
+  --
+  employee_guid : UUID <<FK>>
+  job_title_id : INT <<FK>>
+  staff_category_id : INT <<FK>>
+  employment_type_id : INT <<FK>>
+  subdivision_id : INT <<FK>>
+  job_state : VARCHAR(255)
+}
+
+users ||--o| students : guid
+users ||--o| employees : guid
+students ||--o{ student_groups : group_id
+students ||--o{ departments : department_id
+students ||--o{ degree_levels : degree_level_id
+students ||--o{ degree_forms : degree_form_id
+employees ||--o{ employee_employments : employee_guid
+employee_employments ||--o{ job_titles : job_title_id
+employee_employments ||--o{ staff_categories : staff_category_id
+employee_employments ||--o{ employment_types : employment_type_id
+employee_employments ||--o{ subdivisions : subdivision_id
+
+hide circle
+@enduml

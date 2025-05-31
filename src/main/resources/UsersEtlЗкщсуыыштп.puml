@@ -1,0 +1,74 @@
+@startuml
+actor "Batch Scheduler" as Scheduler
+participant "BatchConfig" as Config
+participant "GraphQLClient" as GQLClient
+participant "ItemReader" as Reader
+participant "ItemProcessor" as Processor
+participant "ItemWriter" as Writer
+participant "StudentRepository" as StudentRepo
+participant "UserRepository" as UserRepo
+participant "ReferenceRepositories" as RefRepo
+participant "EmployeeRepository" as EmployeeRepo
+
+== Student Processing ==
+Scheduler -> Config: Trigger importJob
+Config -> Reader: studentReader()
+Reader -> GQLClient: getStudents()
+GQLClient -> Reader: StudentsResponse
+loop for each StudentDTO
+    Reader -> Processor: read() returns StudentDTO
+    Processor -> StudentRepo: findById(guid)
+    alt Student exists
+        StudentRepo -> Processor: Existing Student
+        Processor -> RefRepo: getCachedGroup/Department/etc.
+        RefRepo -> Processor: Cached Entities
+        Processor -> UserRepo: findById(guid)
+        UserRepo -> Processor: User
+        Processor -> Processor: updateExistingStudent()
+    else Student not exists
+        Processor -> UserRepo: findById(guid)
+        alt User exists
+            UserRepo -> Processor: User
+        else User not exists
+            Processor -> Processor: createUser()
+        end
+        Processor -> RefRepo: getCachedGroup/Department/etc.
+        RefRepo -> Processor: Cached Entities
+        Processor -> Processor: createNewStudent()
+    end
+    Processor -> Writer: Processed Student
+end
+Writer -> UserRepo: saveAll(users)
+Writer -> StudentRepo: saveAll(students)
+
+== Employee Processing ==
+Config -> Reader: employeeReader()
+Reader -> GQLClient: getEmployees()
+GQLClient -> Reader: EmployeesResponse
+loop for each EmployeeDTO
+    Reader -> Processor: read() returns EmployeeDTO
+    Processor -> EmployeeRepo: findById(guid)
+    alt Employee exists
+        EmployeeRepo -> Processor: Existing Employee
+        Processor -> RefRepo: getCachedJobTitle/StaffCategory/etc.
+        RefRepo -> Processor: Cached Entities
+        Processor -> UserRepo: findById(guid)
+        UserRepo -> Processor: User
+        Processor -> Processor: updateExistingEmployee()
+    else Employee not exists
+        Processor -> UserRepo: findById(guid)
+        alt User exists
+            UserRepo -> Processor: User
+        else User not exists
+            Processor -> Processor: createEmployeeUser()
+        end
+        Processor -> RefRepo: getCachedJobTitle/StaffCategory/etc.
+        RefRepo -> Processor: Cached Entities
+        Processor -> Processor: createNewEmployee()
+    end
+    Processor -> Writer: Processed Employee
+end
+Writer -> UserRepo: saveAll(users)
+Writer -> EmployeeRepo: saveAll(employees)
+
+@enduml
